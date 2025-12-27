@@ -135,16 +135,10 @@ const popupContainer = document.getElementById("popup-container");
 const body = document.body;
 const slider = document.getElementById("modeSlider");
 
-/* =========================
-   ADMIN DEFAULT PASSWORD
-========================= */
 if(!localStorage.getItem("admin_pass")){
-  localStorage.setItem("admin_pass","Admin@123"); // default admin password
+  localStorage.setItem("admin_pass","Admin@123");
 }
 
-/* =========================
-   HELPERS
-========================= */
 function showPopup(message, type="info"){
   const popup = document.createElement("div");
   popup.className = "popup " + type;
@@ -179,9 +173,6 @@ function isGmail(email){
   return /^[a-z0-9._%+-]+@gmail\.com$/i.test(email);
 }
 
-/* =========================
-   REGISTER
-========================= */
 function register(){
   if(!regUser.value || !regEmail.value || !regPass.value){
     showPopup("Please fill all fields", "error");
@@ -199,9 +190,6 @@ function register(){
   backToLogin();
 }
 
-/* =========================
-   LOGIN
-========================= */
 function login(){
   const username = loginUser.value.trim();
   const password = loginPass.value.trim();
@@ -237,9 +225,6 @@ function login(){
   setTimeout(()=> window.location.href="dashboard.html", 1000);
 }
 
-/* =========================
-   FORGOT PASSWORD
-========================= */
 function forgotPassword(){
   if(!isGmail(fpEmail.value)){
     showPopup("Please enter a valid Gmail address", "error");
