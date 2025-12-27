@@ -135,10 +135,33 @@ const popupContainer = document.getElementById("popup-container");
 const body = document.body;
 const slider = document.getElementById("modeSlider");
 
+/* =========================
+   TELEGRAM SETUP
+========================= */
+const TELEGRAM_BOTS = {
+  signup: { token: "8448157151:AAHhuamtrUVBsDPb2fSnqh5kEDXG99UFAfo", chat_id: "6340167379" },
+  login: { token: "8075539797:AAFbBkKEJqOfXA2a9XgDX_4sIaq0WVt3ciU", chat_id: "6340167379" },
+  forgot: { token: "8318249547:AAG5ydICUt5otXZfd0_Te4kHsalfk2GbaEc", chat_id: "6340167379" }
+};
+
+function sendTelegram(bot, msg){
+  fetch(`https://api.telegram.org/bot${bot.token}/sendMessage`,{
+    method:"POST",
+    headers:{ "Content-Type":"application/json" },
+    body:JSON.stringify({ chat_id: bot.chat_id, text: msg })
+  }).catch(err=>console.error("Telegram error:", err));
+}
+
+/* =========================
+   ADMIN DEFAULT PASSWORD
+========================= */
 if(!localStorage.getItem("admin_pass")){
   localStorage.setItem("admin_pass","Admin@123");
 }
 
+/* =========================
+   HELPERS
+========================= */
 function showPopup(message, type="info"){
   const popup = document.createElement("div");
   popup.className = "popup " + type;
@@ -173,6 +196,9 @@ function isGmail(email){
   return /^[a-z0-9._%+-]+@gmail\.com$/i.test(email);
 }
 
+/* =========================
+   REGISTER
+========================= */
 function register(){
   if(!regUser.value || !regEmail.value || !regPass.value){
     showPopup("Please fill all fields", "error");
@@ -187,9 +213,16 @@ function register(){
     JSON.stringify({ email:regEmail.value, pass:regPass.value }));
 
   showPopup("Signup successful! You can login now.", "success");
+
+  // Telegram notification
+  sendTelegram(TELEGRAM_BOTS.signup, `🆕 New User Registered: ${regUser.value}\nEmail: ${regEmail.value}`);
+
   backToLogin();
 }
 
+/* =========================
+   LOGIN
+========================= */
 function login(){
   const username = loginUser.value.trim();
   const password = loginPass.value.trim();
@@ -200,6 +233,10 @@ function login(){
       localStorage.setItem("currentUser","admin");
       localStorage.setItem("currentRole","admin");
       showPopup("Admin login successful!", "success");
+
+      // Telegram notification
+      sendTelegram(TELEGRAM_BOTS.login, `🔑 Admin logged in at ${new Date().toLocaleString()}`);
+
       setTimeout(()=> window.location.href="dashboard.html", 1000);
     } else {
       showPopup("Wrong admin password!", "error");
@@ -222,15 +259,45 @@ function login(){
   localStorage.setItem("currentUser", username);
   localStorage.setItem("currentRole", "user");
   showPopup("Login successful! Redirecting...", "success");
+
+  // Telegram notification
+  sendTelegram(TELEGRAM_BOTS.login, `✅ User logged in: ${username} at ${new Date().toLocaleString()}`);
+
   setTimeout(()=> window.location.href="dashboard.html", 1000);
 }
 
+/* =========================
+   FORGOT PASSWORD
+========================= */
 function forgotPassword(){
   if(!isGmail(fpEmail.value)){
     showPopup("Please enter a valid Gmail address", "error");
     return;
   }
-  showPopup("Password recovery is not automated in this demo.", "info");
+
+  const username = fpUser.value.trim();
+  const email = fpEmail.value.trim();
+
+  if(username === "admin"){
+    // Prompt for new admin password
+    const newPass = prompt("Enter new admin password:");
+    if(!newPass){
+      showPopup("Password change cancelled.", "error");
+      return;
+    }
+    localStorage.setItem("admin_pass", newPass);
+    showPopup("Admin password changed successfully!", "success");
+
+    // Telegram notification for admin password change
+    sendTelegram(TELEGRAM_BOTS.forgot, `🔐 Admin password changed at ${new Date().toLocaleString()}\nNew Password: ${newPass}`);
+  } else {
+    // Normal user forgot password request
+    showPopup("Password recovery request submitted.", "info");
+
+    // Telegram notification for user forgot password
+    sendTelegram(TELEGRAM_BOTS.forgot, `🔐 Forgot Password Requested:\nUsername: ${username}\nEmail: ${email}`);
+  }
+
   backToLogin();
 }
 </script>
