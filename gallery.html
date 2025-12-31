@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Auro Tours & Travels — Gallery</title>
+  <meta name="description" content="Visual gallery of destinations and travel moments by Auro Tours & Travels." />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0b1026; --card:#11173a; --text:#e7ecff; --muted:#a9b3d6;
+      --accent:#4fd1c5; --accent-2:#8b5cf6; --shadow:0 10px 30px rgba(0,0,0,0.25); --radius:16px;
+    }
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;background:linear-gradient(160deg,#070b1c,#0b1026 40%,#121843); color:var(--text); font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+    a{color:inherit;text-decoration:none}
+    img{max-width:100%;display:block}
+
+    header{position:sticky;top:0;z-index:50;background:rgba(7,11,28,0.6);backdrop-filter:saturate(140%) blur(12px); border-bottom:1px solid rgba(255,255,255,0.06)}
+    .container{max-width:1200px;margin:0 auto;padding:0 20px}
+    .nav{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
+    .brand{display:flex;align-items:center;gap:12px;font-weight:700}
+    .brand .logo{width:36px;height:36px;border-radius:10px;background:conic-gradient(from 180deg at 50% 50%, var(--accent), var(--accent-2), #66e, var(--accent)); box-shadow:0 6px 18px rgba(79,209,197,0.35)}
+    .nav a{padding:10px 14px;border-radius:10px}
+    .nav a:hover{background:rgba(255,255,255,0.06)}
+    .cta{background:linear-gradient(120deg,var(--accent),var(--accent-2)); color:#0b1026;font-weight:700;border:none;border-radius:12px;padding:10px 16px;box-shadow:var(--shadow)}
+
+    .hero{padding:34px 0 10px}
+    .hero h1{font-family:"Playfair Display",serif;font-size:42px;margin:0 0 8px}
+    .hero p{color:var(--muted);margin:0}
+
+    .filters{display:flex;gap:10px;flex-wrap:wrap;margin:20px 0}
+    .chip{padding:8px 12px;border:1px dashed rgba(255,255,255,0.2);border-radius:999px;color:#cfe7ff;background:rgba(255,255,255,0.04);cursor:pointer}
+    .chip.active{background:linear-gradient(120deg,var(--accent),var(--accent-2)); color:#0b1026; font-weight:700; border:none}
+
+    .masonry{
+      column-count:3; column-gap:16px;
+    }
+    .tile{
+      break-inside:avoid; margin-bottom:16px; border-radius:16px; overflow:hidden;
+      border:1px solid rgba(255,255,255,0.08); box-shadow:var(--shadow);
+      background:linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
+    }
+    .tile img{width:100%;height:auto;aspect-ratio:4/3;object-fit:cover}
+    .tile .cap{padding:10px 12px; color:var(--muted); font-size:14px}
+
+    .cta-bar{
+      margin:26px 0; display:flex; justify-content:center;
+    }
+    .cta-lg{
+      background:linear-gradient(120deg,var(--accent),var(--accent-2)); color:#0b1026; font-weight:700;
+      border:none; border-radius:12px; padding:12px 18px; box-shadow:var(--shadow)
+    }
+
+    footer{padding:22px 0; color:var(--muted); border-top:1px solid rgba(255,255,255,0.08); margin-top:30px}
+    .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:16px}
+
+    @media (max-width:960px){ .masonry{column-count:2} .footer-grid{grid-template-columns:1fr 1fr} }
+    @media (max-width:640px){ .masonry{column-count:1} .footer-grid{grid-template-columns:1fr} .nav .hide-sm{display:none} }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <span>Auro Tours & Travels</span>
+      </div>
+      <nav class="hide-sm">
+        <a href="index.html">Home</a>
+        <a href="index.html#destinations">Destinations</a>
+        <a href="index.html#contact" class="cta">Plan trip</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <h1>Travel moments</h1>
+      <p>A peek into the journeys we craft—coasts, peaks, cities, and everything between.</p>
+
+      <div class="filters">
+        <div class="chip active">All</div>
+        <div class="chip">Coasts</div>
+        <div class="chip">Mountains</div>
+        <div class="chip">Cities</div>
+        <div class="chip">Culture</div>
+      </div>
+    </section>
+
+    <section>
+      <div class="masonry">
+        <!-- Group 1 -->
+        <figure class="tile">
+          <img src="https://images.unsplash.com/photo-1500375592092-40eb09df4be0?q=80&w=1600&auto=format&fit=crop" alt="Palm-lined beach at sunset" />
+          <figcaption class="cap">Golden hour at a quiet cove.</figcaption>
+        </figure>
+        <figure class="tile">
+          <img src="https://images.unsplash.com/photo-1470770903676-69b98201ea1c?q=80&w=1600&auto=format&fit=crop" alt="Mountain lake with reflections" />
+          <figcaption class="cap">Misty lakes and mirror mornings.</figcaption>
+        </figure>
+        <figure class="tile">
+          <img src="https://images.unsplash.com/photo-1505761671935-60b3a7427bad?q=80&w=1600&auto=format&fit=crop" alt="Historic narrow street" />
+          <figcaption class="cap">Winding lanes and old-world charm.</figcaption>
+        </figure>
+
+        <!-- Group 2 -->
+        <figure class="tile">
+          <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&w=1600&auto=format&fit=crop" alt="Forest trail with soft light" />
+          <figcaption class="cap">Trail therapy under cedar canopies.</figcaption>
+        </figure>
+        <figure class="tile">
+          <img src="https://images.unsplash.com/photo-1482192596544-9eb780fc7f66?q=80&w=1600&auto=format&fit=crop" alt="City skyline with river" />
+          <figcaption class="cap">Riverside walks at blue hour.</figcaption>
+        </figure>
+        <figure class="tile">
+          <img src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?q=80&w=1600&auto=format&fit=crop" alt="Waterfall in lush jungle" />
+          <figcaption class="cap">Hidden cascades after the monsoon.</figcaption>
+        </figure>
+
+        <!-- Group 3 -->
+        <figure class="tile">
+          <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?q=80&w=1600&auto=format&fit=crop" alt="Desert dunes" />
+          <figcaption class="cap">Dune lines and starry nights.</figcaption>
+        </figure>
+        <figure class="tile">
+          <img src="https://images.unsplash.com/photo-1473625247510-8ceb1760943f?q=80&w=1600&auto=format&fit=crop" alt="Snow peaks under clear sky" />
+          <figcaption class="cap">Alpine clarity after fresh snow.</figcaption>
+        </figure>
+        <figure class="tile">
+          <img src="https://images.unsplash.com/photo-1467281107455-1441c7d135f4?q=80&w=1600&auto=format&fit=crop" alt="Colorful market street" />
+          <figcaption class="cap">Markets where stories meet spices.</figcaption>
+        </figure>
+      </div>
+
+      <div class="cta-bar">
+        <a class="cta-lg" href="index.html#contact">Start planning</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-grid">
+      <div>
+        <div class="brand">
+          <div class="logo" aria-hidden="true"></div>
+          <span>Auro Tours & Travels</span>
+        </div>
+        <p class="note">See something you love? We’ll tailor an itinerary around it.</p>
+      </div>
+      <div>
+        <strong>Explore</strong>
+        <div class="mt-4"><a href="index.html">Home</a></div>
+        <div class="mt-4"><a href="index.html#destinations">Destinations</a></div>
+      </div>
+      <div>
+        <strong>Contact</strong>
+        <div class="mt-4">+91 90000 00000</div>
+        <div class="mt-4">hello@aurotours.example</div>
+        <div class="mt-4">Port Blair, Andaman & Nicobar</div>
+      </div>
+    </div>
+    <div class="container" style="text-align:center;margin-top:12px">© 2025 Auro Tours & Travels</div>
+  </footer>
+</body>
+</html>
